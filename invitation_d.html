@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Амир & Даяна — 25 сентября 2026</title>
+            <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400&family=Bodoni+Moda:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Parisienne&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Gogol';
+            src: url('gogol_regular.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+            </style>
+    <!-- CRITICAL: Disable scroll restoration and show splash BEFORE any paint -->
+    <script>
+        (function() {
+            history.scrollRestoration && (history.scrollRestoration = 'manual');
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+            // Force splash visible on every load (including bfcache restore)
+            var s = document.getElementById('splash');
+            if (s) {
+                s.style.display = 'flex';
+                s.classList.remove('hidden');
+                s.classList.remove('animate');
+            }
+        })();
+    </script>
+    <style>
+        :root {
+            --bg: #F7F7F5;
+            --bg-card: #FFFFFF;
+            --divider: #D4CEC6;
+            --text: #2E2E2E;
+            --text-light: #6B6968;
+            --accent: #000000;
+            --burgundy: #8B2252;
+            --burgundy-light: #C97A8F;
+            --dress-1: #E8DFD2;
+            --dress-2: #CFC2B0;
+            --dress-3: #6B6968;
+            --dress-4: #000000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            overscroll-behavior: none;
+        }
+
+        body {
+            background: linear-gradient(135deg, #F5F0E8 0%, #EDE5D8 50%, #E8E0D0 100%);
+            color: var(--text);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            line-height: 1.6;
+            overflow-x: hidden;
+            overflow-y: auto;
+            height: 100vh;
+        }
+
+        /* ===== SPLASH INTRO — TEXT ONLY ===== */
+        .splash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #F5F0E8 0%, #EDE5D8 50%, #E8E0D0 100%);
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .splash.hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* === SPLASH TEXT === */
+        .splash-text {
+            text-align: center;
+            z-index: 10;
+            transition: opacity 0.8s ease;
+        }
+
+        .splash.hidden .splash-text {
+            opacity: 0;
+        }
+
+        .splash-pretitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 18px;
+            letter-spacing: 0.1em;
+            color: var(--text-light);
+            margin-bottom: 12px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .splash-names {
+            font-family: 'Playfair Display', serif;
+            font-weight: 300;
+            font-size: 32px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--text);
+            margin-bottom: 8px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .splash-names .ampersand {
+            font-family: 'Parisienne', cursive;
+            font-weight: 400;
+            font-size: 32px;
+            color: var(--burgundy);
+            margin: 0 2px;
+            display: inline-block;
+            transform: rotate(-3deg);
+            text-shadow: 0 0 30px rgba(139, 34, 82, 0.18);
+            line-height: 1;
+            vertical-align: middle;
+        }
+
+        .splash-divider {
+            width: 40px;
+            height: 1px;
+            background: var(--burgundy-light);
+            margin: 10px auto;
+            opacity: 0;
+        }
+
+        .splash-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 18px;
+            letter-spacing: 0.12em;
+            color: var(--text-light);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* Hint */
+        .splash-scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            opacity: 0;
+            white-space: nowrap;
+        }
+
+        .splash-scroll-hint svg {
+            width: 20px;
+            height: 20px;
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateY(0); opacity: 0.5; }
+            50% { transform: translateY(6px); opacity: 1; }
+        }
+
+        /* Stagger animations */
+        .splash.animate #splash-line-1 {
+            animation: splashLineIn 1s ease forwards 0.5s;
+        }
+        .splash.animate #splash-line-2 {
+            animation: splashLineIn 1s ease forwards 1.8s;
+        }
+        .splash.animate #splash-line-3 {
+            animation: splashLineIn 1s ease forwards 2.8s;
+        }
+        .splash.animate #splash-hint {
+            animation: splashFadeIn 0.8s ease forwards 3.8s;
+        }
+
+        @keyframes splashLineIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes splashFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Floating particles */
+        .splash-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--burgundy-light);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat 6s ease-in-out infinite;
+        }
+
+        .particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 25%; top: 60%; animation-delay: 1s; }
+        .particle:nth-child(3) { left: 70%; top: 30%; animation-delay: 2s; }
+        .particle:nth-child(4) { left: 85%; top: 70%; animation-delay: 3s; }
+        .particle:nth-child(5) { left: 50%; top: 15%; animation-delay: 4s; }
+        .particle:nth-child(6) { left: 15%; top: 80%; animation-delay: 0.5s; }
+        .particle:nth-child(7) { left: 90%; top: 45%; animation-delay: 2.5s; }
+        .particle:nth-child(8) { left: 40%; top: 85%; animation-delay: 1.5s; }
+
+        @keyframes particleFloat {
+            0% { opacity: 0; transform: translateY(0) scale(0.5); }
+            20% { opacity: 0.3; transform: translateY(-20px) scale(1); }
+            80% { opacity: 0.15; transform: translateY(-60px) scale(0.8); }
+            100% { opacity: 0; transform: translateY(-80px) scale(0.5); }
+        }
+
+        /* ===== TWO-COLUMN LAYOUT ===== */
+        .layout {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+
+        .col-left {
+            flex: 0 0 55%;
+            padding: 40px 30px;
+            position: relative;
+        }
+
+        .col-right {
+            flex: 0 0 45%;
+            padding: 40px 30px;
+            position: relative;
+        }
+
+        .col-divider {
+            width: 3%;
+            background: linear-gradient(to bottom, var(--burgundy-light), var(--divider), var(--burgundy-light));
+            flex-shrink: 0;
+        }
+
+        /* ===== LEFT COLUMN ===== */
+
+        /* Top card */
+        .top-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 40px 30px 30px;
+            margin-bottom: 30px;
+            position: relative;
+            text-align: center;
+        }
+
+        .top-card-quote {
+            font-family: 'Parisienne', cursive;
+            font-weight: 400;
+            line-height: 1.2;
+            transform: rotate(-3deg);
+            text-shadow: 0 0 20px rgba(139, 34, 82, 0.15);
+            flex-shrink: 0;
+        }
+
+        .top-card-pretitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 16px;
+            letter-spacing: 0.08em;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .names {
+            font-family: 'Playfair Display', serif;
+            font-weight: 300;
+            font-size: 20px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .top-card-posttitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: 18px;
+            letter-spacing: 0.1em;
+            color: var(--text-light);
+            margin-top: 10px;
+        }
+
+        .date-top {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 22px;
+            text-align: center;
+            margin-top: 15px;
+            letter-spacing: 0.1em;
+            color: var(--text-light);
+        }
+
+        /* Invitation section */
+        .invitation-section {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .invitation-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 44px;
+            margin-bottom: 15px;
+            color: var(--text);
+            text-align: center;
+        }
+
+            .invitation-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: 15px;
+            text-align: center;
+            line-height: 1.9;
+            color: var(--text);
+            max-width: 380px;
+            margin: 0 auto;
+        }
+
+
+        /* Details section */
+        .details-section {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .details-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 44px;
+            margin-bottom: 25px;
+            color: var(--text);
+            text-align: center;
+        }
+
+        .details-list {
+            list-style: none;
+            max-width: 380px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .details-list li {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: linear-gradient(135deg, rgba(245, 240, 232, 0.9), rgba(237, 229, 216, 0.9));
+            padding: 18px 24px;
+            border-radius: 14px;
+            width: 100%;
+            flex-shrink: 0;
+            border: 1.5px solid var(--burgundy);
+            box-shadow: 0 3px 16px rgba(0, 0, 0, 0.03);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .details-list li:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .details-list li .heart-emoji {
+            font-size: 24px;
+            flex-shrink: 0;
+            color: var(--burgundy);
+        }
+
+        .details-list li .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .details-list li .detail-label {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 9px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(60, 40, 35, 0.5);
+        }
+
+        .details-list li .detail-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-weight: 300;
+            font-size: 16px;
+            color: var(--text);
+            line-height: 1.3;
+        }
+
+        /* Big date at bottom */
+        .big-date {
+            font-family: 'Bodoni Moda', serif;
+            font-weight: 300;
+            font-size: 100px;
+            line-height: 1;
+            text-align: center;
+            color: var(--text);
+            margin: 30px 0;
+        }
+
+        .big-date .day {
+            font-size: 100px;
+            letter-spacing: 0.05em;
+        }
+
+        .big-date .month-year {
+            font-size: 26px;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            margin-top: 5px;
+            color: var(--text-light);
+        }
+
+        /* Bottom quote */
+        .details-xxxl {
+            margin-top: 16px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .details-xxxl img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 12px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .bottom-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 16px;
+            color: var(--burgundy);
+            text-align: center;
+            margin-top: 30px;
+            line-height: 1.4;
+        }
+
+        /* ===== RIGHT COLUMN ===== */
+
+        /* Photo block */
+        .photo-block {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            margin-right: 10px;
+        }
+
+        .photo-placeholder {
+            border-radius: 8px;
+            background: #E0DDD8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 11px;
+            color: var(--text-light);
+            overflow: hidden;
+            filter: grayscale(100%);
+        }
+
+        .photo-placeholder:first-child {
+            width: 130px;
+            height: 170px;
+        }
+
+        .photo-placeholder:last-child {
+            width: 100px;
+            height: 130px;
+            margin-top: 40px;
+        }
+
+        /* Timer */
+        .timer-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .timer-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 44px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .timer-display {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 10px;
+        }
+
+        .timer-block {
+            text-align: center;
+        }
+
+        .timer-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: 48px;
+            color: var(--text);
+            line-height: 1;
+            letter-spacing: 0.05em;
+        }
+
+        .timer-label {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-top: 5px;
+        }
+
+        /* Place section */
+        .place-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .place-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 44px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .place-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 22px;
+            margin-bottom: 5px;
+            letter-spacing: 0.05em;
+        }
+
+        .place-address {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .place-photo {
+            width: 85%;
+            max-width: 380px;
+            aspect-ratio: 4/3;
+            background: #E0DDD8;
+            border-radius: 8px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 11px;
+            color: var(--text-light);
+            filter: grayscale(100%);
+        }
+
+        .map-btn {
+            display: block;
+            width: fit-content;
+            margin: 0 auto;
+            background: transparent;
+            color: var(--burgundy);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 12px 28px;
+            border: 1.5px solid var(--burgundy);
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .map-btn:hover {
+            background: var(--burgundy);
+            color: #FFFFFF;
+        }
+
+        /* Dresscode section */
+.dresscode-section {
+    text-align: center;
+    margin-top: -20px;
+    margin-bottom: 20px;
+    border-top: none;
+    border: none;
+}
+
+        .dresscode-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 44px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .dresscode-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: 14px;
+            line-height: 1.9;
+            color: var(--text);
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        /* ===== TIMING SECTION ===== */
+        .timing-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .timing-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 44px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .timing-list {
+            list-style: none;
+            max-width: 380px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .timing-list li {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            background: linear-gradient(135deg, rgba(245, 240, 232, 0.9), rgba(237, 229, 216, 0.9));
+            padding: 14px 20px;
+            border-radius: 14px;
+            width: 100%;
+            flex-shrink: 0;
+            border: 1.5px solid var(--burgundy);
+            box-shadow: 0 3px 16px rgba(0, 0, 0, 0.03);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .timing-list li:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+        }
+
+        .timing-time {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            font-size: 18px;
+            color: var(--burgundy);
+            flex-shrink: 0;
+            min-width: 50px;
+        }
+
+        .timing-event {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-weight: 300;
+            font-size: 14px;
+            color: var(--text);
+            line-height: 1.4;
+            text-align: left;
+        }
+
+        /* ===== RSVP FORM ===== */
+        .rsvp-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .rsvp-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 44px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            max-width: 380px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 9px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+.form-group input,
+.form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid var(--burgundy);
+            border-radius: 14px;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: 15px;
+            color: var(--text);
+            background: linear-gradient(135deg, rgba(245, 240, 232, 0.9), rgba(237, 229, 216, 0.9));
+            box-shadow: 0 3px 16px rgba(0, 0, 0, 0.03);
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            display: block;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 12px 40px 12px 16px;
+            border: 1.5px solid var(--burgundy);
+            border-radius: 14px;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: 15px;
+            color: var(--text);
+            background-color: #F5F0E8;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238B2252' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            box-shadow: 0 3px 16px rgba(0, 0, 0, 0.03);
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            appearance: none;
+            -webkit-appearance: none;
+            display: block;
+            cursor: pointer;
+        }
+
+        .form-group select option {
+            background: #F5F0E8;
+            color: var(--text);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--burgundy);
+            box-shadow: 0 4px 20px rgba(139, 34, 82, 0.08);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .submit-btn {
+            background: transparent;
+            color: var(--burgundy);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 14px 36px;
+            border: 1.5px solid var(--burgundy);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background: var(--burgundy);
+            color: #FFFFFF;
+        }
+
+        .form-success {
+            display: none;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 34px;
+            color: var(--text);
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .layout {
+                flex-direction: column;
+            }
+
+            .col-divider {
+                width: 100%;
+                height: 1px;
+            }
+
+            .col-left, .col-right {
+                flex: 1 1 100%;
+                padding: 30px 20px;
+            }
+
+            .love-text {
+                font-size: 80px;
+            }
+
+            .big-date {
+                font-size: 65px;
+                text-align: center;
+            }
+
+            .big-date .month-year {
+                font-size: 20px;
+            }
+
+
+            .timer-number {
+                font-size: 36px;
+            }
+
+            .photo-placeholder:first-child {
+                width: 100px;
+                height: 140px;
+            }
+
+            .photo-placeholder:last-child {
+                width: 80px;
+                height: 110px;
+                margin-top: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SPLASH — TEXT ONLY -->
+    <div class="splash" id="splash">
+        <div class="splash-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        <div class="splash-text" id="splash-text">
+            <div class="splash-pretitle" id="splash-line-1">Мы приглашаем тебя на свадьбу</div>
+            <div class="splash-names" id="splash-line-2">Амира <span class="ampersand">&amp;</span> Даяны</div>
+            <div class="splash-subtitle" id="splash-line-3">25 сентября 2026</div>
+        </div>
+        <div class="splash-scroll-hint" id="splash-hint">прокрутите вниз</div>
+    </div>
+
+    <div class="layout">
+        <!-- LEFT COLUMN -->
+        <div class="col-left">
+            <!-- Invitation text -->
+            <div class="invitation-section">
+                <div class="invitation-title">Приглашение</div>
+                <div class="invitation-text">
+                    Мы рады пригласить тебя разделить с нами один из самых важных дней в нашей жизни. Твоё присутствие сделает этот праздник ещё теплее.
+                </div>
+                <div style="margin-top: 20px;">
+                    <button type="button" class="submit-btn" onclick="document.getElementById('rsvp').scrollIntoView({behavior:'smooth'})">Подтвердить присутствие</button>
+                </div>
+            </div>
+
+            <!-- Details -->
+            <div class="details-section">
+                <div class="details-title">Детали</div>
+                <ul class="details-list">
+                    <li>
+                        <span class="heart-emoji">♥</span>
+                        <div class="detail-item">
+                            <span class="detail-label">Дата</span>
+                            <span class="detail-value">25 сентября 2026</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="heart-emoji">♥</span>
+                        <div class="detail-item">
+                            <span class="detail-label">Место</span>
+                            <span class="detail-value">Нальчик, Ресторан <a href="https://yandex.ru/maps/org/uayt_river_kholl/40581730526/?ll=43.577423%2C43.455909&z=14.22" target="_blank" style="color: var(--burgundy); text-decoration: none; font-style: italic;">White River Hall</a></span>
+                            <span class="detail-label" style="margin-top: 6px;">Для гостей из Москвы</span>
+                            <span class="detail-value" style="font-style: normal; font-size: 13px;">Добраться можно рейсами до Нальчика, Минеральных Вод или Владикавказа, или 15 дней пешком по трассе М4</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="heart-emoji">♥</span>
+                        <div class="detail-item">
+                            <span class="detail-label">Сбор гостей</span>
+                            <span class="detail-value">17:00</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- RIGHT COLUMN -->
+        <div class="col-right">
+            <!-- Dresscode -->
+            <div class="dresscode-section">
+                <div class="dresscode-title">Дресс-код</div>
+                <div class="dresscode-text">
+                    Будем благодарны, если при выборе нарядов вы поддержите цветовую палитру нашего праздника. Мы просим отказаться от чёрных и белых цветов — пусть этот день будет наполнен светом и тёплыми красками.
+                </div>
+            </div>
+
+            <!-- Timing Section -->
+            <div class="timing-section">
+                <div class="timing-title">Тайминг</div>
+                <ul class="timing-list">
+                    <li>
+                        <span class="timing-time">11:00</span>
+                        <span class="timing-event">Сбор стороны невесты в ресторане <a href="https://yandex.ru/maps/org/bereg/1021248416/?ll=43.604143%2C43.475048&z=16.79" target="_blank" style="color: var(--burgundy); text-decoration: none; font-style: italic;">Берег</a></span>
+                    </li>
+                    <li>
+                        <span class="timing-time">13:00</span>
+                        <span class="timing-event">Вывод невесты</span>
+                    </li>
+                    <li>
+                        <span class="timing-time">14:00</span>
+                        <span class="timing-event">Традиционные обряды в доме жениха</span>
+                    </li>
+                    <li>
+                        <span class="timing-time">17:00</span>
+                        <span class="timing-event">Сбор в ресторане <a href="https://yandex.ru/maps/org/uayt_river_kholl/40581730526/?ll=43.577423%2C43.455909&z=14.22" target="_blank" style="color: var(--burgundy); text-decoration: none; font-style: italic;">White River Hall</a></span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Timer -->
+            <div class="timer-section">
+                <div class="timer-title">До свадьбы осталось</div>
+                <div class="timer-display">
+                    <div class="timer-block">
+                        <div class="timer-number" id="timer-days">00</div>
+                        <div class="timer-label">Дней</div>
+                    </div>
+                    <div class="timer-block">
+                        <div class="timer-number" id="timer-hours">00</div>
+                        <div class="timer-label">Часов</div>
+                    </div>
+                    <div class="timer-block">
+                        <div class="timer-number" id="timer-minutes">00</div>
+                        <div class="timer-label">Минут</div>
+                    </div>
+                    <div class="timer-block">
+                        <div class="timer-number" id="timer-seconds">00</div>
+                        <div class="timer-label">Секунд</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RSVP Form -->
+            <div class="rsvp-section" id="rsvp">
+                <div class="rsvp-title">Оставьте автограф</div>
+                <form id="rsvp-form">
+                    <div class="form-group">
+                        <label for="guest-name">Имя гостя</label>
+                        <input type="text" id="guest-name" name="guest-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="guest-plus">Возьмёшь с собой кого-то?</label>
+                        <select id="guest-plus" name="guest-plus">
+                            <option value="alone">Только я</option>
+                            <option value="couple">Буду с парой</option>
+                            <option value="family">Приду с семьёй</option>
+                        </select>
+                    </div>
+                    <div id="guest-count-wrap" style="display:none;">
+                        <div class="form-group">
+                            <label for="guest-count">Сколько всего будет человек?</label>
+                            <input type="number" id="guest-count" name="guest-count" min="1" max="20">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="guest-message">Пожелания или комментарий</label>
+                        <textarea id="guest-message" name="guest-message" placeholder="Здесь можно оставить пожелания, тёплые слова или анекдот..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn" style="margin-left: auto;">Отправить</button>
+                </form>
+                <div class="form-success" id="form-success">Спасибо! Мы получили твой ответ 💐</div>
+
+                <div class="bottom-quote">There indeed no greater power than power of love</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== TIMER =====
+        const targetDate = new Date('2026-09-25T11:00:00');
+
+        function updateTimer() {
+            const now = new Date();
+            const diff = targetDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('timer-days').textContent = '00';
+                document.getElementById('timer-hours').textContent = '00';
+                document.getElementById('timer-minutes').textContent = '00';
+                document.getElementById('timer-seconds').textContent = '00';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('timer-days').textContent = String(days).padStart(2, '0');
+            document.getElementById('timer-hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('timer-minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('timer-seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        updateTimer();
+        setInterval(updateTimer, 1000);
+
+        // ===== SPLASH INTRO — CURTAIN EFFECT =====
+        let splashDismissed = false;
+
+        // Disable scroll restoration — prevents browser from restoring scroll position
+        // on back navigation / bfcache / refresh
+        if (history.scrollRestoration) {
+            history.scrollRestoration = 'manual';
+        }
+
+        function resetScrollAndSplash() {
+            // Scroll to top on all elements (mobile browsers use different scroll containers)
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+            window.scrollTo(0, 0);
+
+            const splash = document.getElementById('splash');
+            if (splash) {
+                splash.style.display = '';
+                splash.classList.remove('hidden');
+                splash.classList.remove('animate');
+                void splash.offsetWidth; // force reflow to re-trigger animation
+                splash.classList.add('animate');
+            }
+            splashDismissed = false;
+        }
+
+        // Show splash on every pageshow (bfcache restore, back button, refresh)
+        window.addEventListener('pageshow', function() {
+            resetScrollAndSplash();
+        });
+
+        // Also handle tab becoming visible (mobile Safari suspends tabs)
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'visible') {
+                resetScrollAndSplash();
+            }
+        });
+
+        // Trigger stagger animations on first load
+        window.addEventListener('load', function() {
+            resetScrollAndSplash();
+        });
+
+        function dismissSplash() {
+            if (splashDismissed) return;
+            splashDismissed = true;
+
+            const splash = document.getElementById('splash');
+            splash.classList.add('hidden');
+
+            // Scroll to top when dismissing splash
+            setTimeout(() => {
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+                window.scrollTo(0, 0);
+            }, 500);
+
+            // Do NOT set display: none — splash must stay visible on bfcache restore
+            // The .hidden class already handles opacity + pointer-events
+        }
+
+        // Any scroll/wheel/tap/click — splash slides up like a curtain
+        window.addEventListener('wheel', function() {
+            if (!splashDismissed) dismissSplash();
+        }, { passive: true });
+
+        window.addEventListener('touchstart', function() {
+            if (!splashDismissed) dismissSplash();
+        }, { passive: true });
+
+        document.getElementById('splash').addEventListener('click', function() {
+            dismissSplash();
+        });
+
+        // ===== TOGGLE GUEST COUNT =====
+        document.getElementById('guest-plus').addEventListener('change', function() {
+            document.getElementById('guest-count-wrap').style.display =
+                this.value === 'family' ? 'block' : 'none';
+        });
+
+        // ===== FORM SUBMIT =====
+        document.getElementById('rsvp-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            this.style.display = 'none';
+            document.getElementById('form-success').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

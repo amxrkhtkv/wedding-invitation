@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Амир & Даяна — 25 сентября 2026</title>
+            <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400&family=Bodoni+Moda:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Parisienne&display=swap" rel="stylesheet">
+            <style>
+                @font-face {
+                    font-family: 'Gogol';
+                    src: url('gogol_regular.otf') format('opentype');
+                    font-weight: normal;
+                    font-style: normal;
+                    font-display: swap;
+                }
+            </style>
+    <style>
+        :root {
+            --bg: #F7F7F5;
+            --bg-card: #FFFFFF;
+            --divider: #D4CEC6;
+            --text: #2E2E2E;
+            --text-light: #6B6968;
+            --accent: #000000;
+            --burgundy: #8B2252;
+            --burgundy-light: #C97A8F;
+            --dress-1: #E8DFD2;
+            --dress-2: #CFC2B0;
+            --dress-3: #6B6968;
+            --dress-4: #000000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #F5F0E8 0%, #EDE5D8 50%, #E8E0D0 100%);
+            color: var(--text);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== SPLASH INTRO — TEXT ONLY ===== */
+        .splash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #F5F0E8 0%, #EDE5D8 50%, #E8E0D0 100%);
+            transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .splash.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* === SPLASH TEXT === */
+        .splash-text {
+            text-align: center;
+            z-index: 10;
+            transition: opacity 0.8s ease;
+        }
+
+        .splash.hidden .splash-text {
+            opacity: 0;
+        }
+
+        .splash-pretitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 18px;
+            letter-spacing: 0.1em;
+            color: var(--text-light);
+            margin-bottom: 12px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .splash-names {
+            font-family: 'Playfair Display', serif;
+            font-weight: 300;
+            font-size: 32px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--text);
+            margin-bottom: 8px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .splash-names .ampersand {
+            font-family: 'Parisienne', cursive;
+            font-weight: 400;
+            font-size: 32px;
+            color: var(--burgundy);
+            margin: 0 2px;
+            display: inline-block;
+            transform: rotate(-3deg);
+            text-shadow: 0 0 30px rgba(139, 34, 82, 0.18);
+            line-height: 1;
+            vertical-align: middle;
+        }
+
+        .splash-divider {
+            width: 40px;
+            height: 1px;
+            background: var(--burgundy-light);
+            margin: 10px auto;
+            opacity: 0;
+        }
+
+        .splash-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 18px;
+            letter-spacing: 0.12em;
+            color: var(--text-light);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* Hint */
+        .splash-scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            opacity: 0;
+            white-space: nowrap;
+        }
+
+        .splash-scroll-hint svg {
+            width: 20px;
+            height: 20px;
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateY(0); opacity: 0.5; }
+            50% { transform: translateY(6px); opacity: 1; }
+        }
+
+        /* Stagger animations */
+        .splash.animate #splash-line-1 {
+            animation: splashLineIn 1s ease forwards 0.5s;
+        }
+        .splash.animate #splash-line-2 {
+            animation: splashLineIn 1s ease forwards 1.8s;
+        }
+        .splash.animate #splash-line-3 {
+            animation: splashLineIn 1s ease forwards 2.8s;
+        }
+        .splash.animate #splash-hint {
+            animation: splashFadeIn 0.8s ease forwards 3.8s;
+        }
+
+        @keyframes splashLineIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes splashFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Floating particles */
+        .splash-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--burgundy-light);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat 6s ease-in-out infinite;
+        }
+
+        .particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+        .particle:nth-child(2) { left: 25%; top: 60%; animation-delay: 1s; }
+        .particle:nth-child(3) { left: 70%; top: 30%; animation-delay: 2s; }
+        .particle:nth-child(4) { left: 85%; top: 70%; animation-delay: 3s; }
+        .particle:nth-child(5) { left: 50%; top: 15%; animation-delay: 4s; }
+        .particle:nth-child(6) { left: 15%; top: 80%; animation-delay: 0.5s; }
+        .particle:nth-child(7) { left: 90%; top: 45%; animation-delay: 2.5s; }
+        .particle:nth-child(8) { left: 40%; top: 85%; animation-delay: 1.5s; }
+
+        @keyframes particleFloat {
+            0% { opacity: 0; transform: translateY(0) scale(0.5); }
+            20% { opacity: 0.3; transform: translateY(-20px) scale(1); }
+            80% { opacity: 0.15; transform: translateY(-60px) scale(0.8); }
+            100% { opacity: 0; transform: translateY(-80px) scale(0.5); }
+        }
+
+        /* ===== TWO-COLUMN LAYOUT ===== */
+        .layout {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+
+        .col-left {
+            flex: 0 0 55%;
+            padding: 40px 30px;
+            position: relative;
+        }
+
+        .col-right {
+            flex: 0 0 45%;
+            padding: 40px 30px;
+            position: relative;
+        }
+
+        .col-divider {
+            width: 3%;
+            background: linear-gradient(to bottom, var(--burgundy-light), var(--divider), var(--burgundy-light));
+            flex-shrink: 0;
+        }
+
+        /* ===== LEFT COLUMN ===== */
+
+        /* Top card */
+        .top-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 40px 30px 30px;
+            margin-bottom: 30px;
+            position: relative;
+            text-align: center;
+        }
+
+        .top-card-quote {
+            font-family: 'Parisienne', cursive;
+            font-weight: 400;
+            line-height: 1.2;
+            transform: rotate(-3deg);
+            text-shadow: 0 0 20px rgba(139, 34, 82, 0.15);
+            flex-shrink: 0;
+        }
+
+        .top-card-pretitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 16px;
+            letter-spacing: 0.08em;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .names {
+            font-family: 'Playfair Display', serif;
+            font-weight: 300;
+            font-size: 20px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .top-card-posttitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: 18px;
+            letter-spacing: 0.1em;
+            color: var(--text-light);
+            margin-top: 10px;
+        }
+
+        .date-top {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 22px;
+            text-align: center;
+            margin-top: 15px;
+            letter-spacing: 0.1em;
+            color: var(--text-light);
+        }
+
+        /* Invitation section */
+        .invitation-section {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .invitation-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 44px;
+            margin-bottom: 15px;
+            color: var(--text);
+            text-align: center;
+        }
+
+        .invitation-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: 15px;
+            text-align: center;
+            line-height: 1.9;
+            color: var(--text);
+            max-width: 380px;
+            margin: 0 auto;
+        }
+
+        /* Big date at bottom */
+        .big-date {
+            font-family: 'Bodoni Moda', serif;
+            font-weight: 300;
+            font-size: 100px;
+            line-height: 1;
+            text-align: center;
+            color: var(--text);
+            margin: 30px 0;
+        }
+
+        .big-date .day {
+            font-size: 100px;
+            letter-spacing: 0.05em;
+        }
+
+        .big-date .month-year {
+            font-size: 26px;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            margin-top: 5px;
+            color: var(--text-light);
+        }
+
+        /* Bottom quote */
+        .bottom-quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 16px;
+            color: var(--burgundy);
+            text-align: center;
+            margin-top: 30px;
+            line-height: 1.4;
+        }
+
+        /* ===== RIGHT COLUMN ===== */
+
+        /* Photo block */
+        .photo-block {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            margin-right: 10px;
+        }
+
+        .photo-placeholder {
+            border-radius: 8px;
+            background: #E0DDD8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 11px;
+            color: var(--text-light);
+            overflow: hidden;
+            filter: grayscale(100%);
+        }
+
+        .photo-placeholder:first-child {
+            width: 130px;
+            height: 170px;
+        }
+
+        .photo-placeholder:last-child {
+            width: 100px;
+            height: 130px;
+            margin-top: 40px;
+        }
+
+        /* Timer */
+        .timer-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .timer-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 44px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .timer-display {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 10px;
+        }
+
+        .timer-block {
+            text-align: center;
+        }
+
+        .timer-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: 48px;
+            color: var(--text);
+            line-height: 1;
+            letter-spacing: 0.05em;
+        }
+
+        .timer-label {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-top: 5px;
+        }
+
+        /* Place section */
+        .place-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .place-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 44px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .place-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 22px;
+            margin-bottom: 5px;
+            letter-spacing: 0.05em;
+        }
+
+        .place-address {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 12px;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .place-photo {
+            width: 85%;
+            max-width: 380px;
+            aspect-ratio: 4/3;
+            background: #E0DDD8;
+            border-radius: 8px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 11px;
+            color: var(--text-light);
+            filter: grayscale(100%);
+        }
+
+        .map-btn {
+            display: block;
+            width: fit-content;
+            margin: 0 auto;
+            background: var(--burgundy);
+            color: #FFFFFF;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .map-btn:hover {
+            opacity: 0.8;
+        }
+
+        /* Dresscode section */
+        .dresscode-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .dresscode-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 44px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .dresscode-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: 14px;
+            line-height: 1.9;
+            color: var(--text);
+            max-width: 320px;
+            margin: 0 auto 20px;
+        }
+
+        .dresscode-palette {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .dress-color {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+        }
+
+        .dress-color:nth-child(1) { background: var(--dress-1); }
+        .dress-color:nth-child(2) { background: var(--dress-2); }
+        .dress-color:nth-child(3) { background: var(--burgundy-light); }
+        .dress-color:nth-child(4) { background: var(--burgundy); }
+
+        /* ===== RSVP FORM ===== */
+        .rsvp-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .rsvp-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 44px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 9px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            max-width: 380px;
+            padding: 12px 16px;
+            border: 1px solid var(--divider);
+            border-radius: 6px;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-size: 15px;
+            color: var(--text);
+            background: var(--bg-card);
+            outline: none;
+            transition: border-color 0.3s;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--burgundy);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .submit-btn {
+            background: var(--burgundy);
+            color: #FFFFFF;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 14px 36px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.8;
+        }
+
+        .form-success {
+            display: none;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 300;
+            font-style: italic;
+            font-size: 34px;
+            color: var(--text);
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .layout {
+                flex-direction: column;
+            }
+
+            .col-divider {
+                width: 100%;
+                height: 1px;
+            }
+
+            .col-left, .col-right {
+                flex: 1 1 100%;
+                padding: 30px 20px;
+            }
+
+            .love-text {
+                font-size: 80px;
+            }
+
+            .big-date {
+                font-size: 65px;
+                text-align: center;
+            }
+
+            .big-date .month-year {
+                font-size: 20px;
+            }
+
+
+            .timer-number {
+                font-size: 36px;
+            }
+
+            .photo-placeholder:first-child {
+                width: 100px;
+                height: 140px;
+            }
+
+            .photo-placeholder:last-child {
+                width: 80px;
+                height: 110px;
+                margin-top: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- SPLASH — TEXT ONLY -->
+    <div class="splash" id="splash">
+        <div class="splash-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        <div class="splash-text" id="splash-text">
+            <div class="splash-pretitle" id="splash-line-1">Мы приглашаем тебя на свадьбу</div>
+            <div class="splash-names" id="splash-line-2">Амира <span class="ampersand">&amp;</span> Даяны</div>
+            <div class="splash-subtitle" id="splash-line-3">25 сентября 2026</div>
+        </div>
+        <div class="splash-scroll-hint" id="splash-hint">прокрутите вниз</div>
+    </div>
+
+    <div class="layout">
+        <!-- LEFT COLUMN -->
+        <div class="col-left">
+            <!-- Top card with names and LOVE -->
+            <div class="top-card">
+                <div class="top-card-pretitle">Мы приглашаем тебя на свадьбу</div>
+                <div class="names">Амир & Даяна</div>
+
+                <div class="date-top">25.09.2026</div>
+                <div class="top-card-posttitle">25 сентября 2026</div>
+            </div>
+
+            <!-- Invitation text -->
+            <div class="invitation-section">
+                <div class="invitation-title">Приглашаем</div>
+                <div class="invitation-text">
+                    Мы рады пригласить тебя разделить с нами один из самых важных дней в нашей жизни. Твоё присутствие сделает этот праздник ещё теплее.
+                </div>
+            </div>
+
+            <!-- Big date -->
+            <div class="big-date">
+                <span class="day">25</span>
+                <span class="month-year">сентября 2026</span>
+            </div>
+        </div>
+
+        <!-- DIVIDER -->
+        <div class="col-divider"></div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="col-right">
+            <!-- Photo placeholders -->
+            <div class="photo-block">
+                <div class="photo-placeholder">Фото</div>
+                <div class="photo-placeholder">Фото</div>
+            </div>
+
+            <!-- Timer -->
+            <div class="timer-section">
+                <div class="timer-title">До свадьбы осталось</div>
+                <div class="timer-display">
+                    <div class="timer-block">
+                        <div class="timer-number" id="timer-days">00</div>
+                        <div class="timer-label">Дней</div>
+                    </div>
+                    <div class="timer-block">
+                        <div class="timer-number" id="timer-hours">00</div>
+                        <div class="timer-label">Часов</div>
+                    </div>
+                    <div class="timer-block">
+                        <div class="timer-number" id="timer-minutes">00</div>
+                        <div class="timer-label">Минут</div>
+                    </div>
+                    <div class="timer-block">
+                        <div class="timer-number" id="timer-seconds">00</div>
+                        <div class="timer-label">Секунд</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Place -->
+            <div class="place-section">
+                <div class="place-title">Место</div>
+                <div class="place-name">Ресторан «Альпика»</div>
+                <div class="place-address">г. Нальчик</div>
+                <div class="place-photo">Фото локации</div>
+                <a href="#" class="map-btn">Открыть карту</a>
+            </div>
+
+            <!-- Dresscode -->
+            <div class="dresscode-section">
+                <div class="dresscode-title">Дресс-код</div>
+                <div class="dresscode-text">
+                    Будем благодарны, если при выборе нарядов вы поддержите цветовую палитру нашего праздника. Мы просим отказаться от чёрных и белых цветов — пусть этот день будет наполнен светом и тёплыми красками.
+                </div>
+                <div class="dresscode-palette">
+                    <div class="dress-color"></div>
+                    <div class="dress-color"></div>
+                    <div class="dress-color"></div>
+                    <div class="dress-color"></div>
+                </div>
+            </div>
+
+            <!-- RSVP Form -->
+            <div class="rsvp-section" id="rsvp">
+                <div class="rsvp-title">Подтвердить присутствие</div>
+                <form id="rsvp-form">
+                    <div class="form-group">
+                        <label for="guest-name">Имя гостя</label>
+                        <input type="text" id="guest-name" name="guest-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="guest-plus">Возьмёшь с собой кого-то?</label>
+                        <select id="guest-plus" name="guest-plus">
+                            <option value="alone">Только я</option>
+                            <option value="couple">Буду с парой</option>
+                            <option value="family">Приду с семьёй</option>
+                        </select>
+                    </div>
+                    <div id="guest-count-wrap" style="display:none; margin-top:1rem; text-align:center;">
+                        <label for="guest-count" style="display:block;font-family:'Montserrat',sans-serif;font-weight:300;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-light);margin-bottom:8px;">Сколько всего будет человек?</label>
+                        <input type="number" id="guest-count" name="guest-count" min="1" max="20" style="width:100%;max-width:380px;padding:12px 16px;border:1px solid var(--divider);border-radius:6px;font-family:'Cormorant Garamond',serif;font-weight:300;font-size:15px;color:var(--text);background:var(--bg-card);outline:none;transition:border-color 0.3s;display:block;margin:0 auto;" onfocus="this.style.borderColor='var(--text)'" onblur="this.style.borderColor='var(--divider)'">
+                    </div>
+                    <div class="form-group">
+                        <label for="guest-message">Пожелания или комментарий</label>
+                        <textarea id="guest-message" name="guest-message" placeholder="Здесь можно оставить пожелания, тёплые слова или анекдот..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Отправить</button>
+                </form>
+                <div class="form-success" id="form-success">Спасибо! Мы получили твой ответ 💐</div>
+
+                <div class="bottom-quote">There indeed no greater power than power of love</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== TIMER =====
+        const targetDate = new Date('2026-09-25T11:00:00');
+
+        function updateTimer() {
+            const now = new Date();
+            const diff = targetDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('timer-days').textContent = '00';
+                document.getElementById('timer-hours').textContent = '00';
+                document.getElementById('timer-minutes').textContent = '00';
+                document.getElementById('timer-seconds').textContent = '00';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('timer-days').textContent = String(days).padStart(2, '0');
+            document.getElementById('timer-hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('timer-minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('timer-seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        updateTimer();
+        setInterval(updateTimer, 1000);
+
+        // ===== SPLASH INTRO — FADE OUT =====
+        let splashDismissed = false;
+
+        // Trigger stagger animations on load
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('splash').classList.add('animate');
+            }, 100);
+        });
+
+        function dismissSplash() {
+            if (splashDismissed) return;
+            splashDismissed = true;
+
+            const splash = document.getElementById('splash');
+            splash.classList.add('hidden');
+            setTimeout(() => { splash.style.display = 'none'; }, 1000);
+        }
+
+        // Allow scroll — splash dismisses on any scroll/wheel
+        let scrollDismissed = false;
+        window.addEventListener('scroll', function() {
+            if (!scrollDismissed && window.scrollY > 5) {
+                scrollDismissed = true;
+                dismissSplash();
+            }
+        }, { passive: true });
+
+        window.addEventListener('wheel', function() {
+            if (!scrollDismissed) {
+                scrollDismissed = true;
+                dismissSplash();
+            }
+        }, { passive: true });
+
+        // Also allow click/tap on splash
+        document.getElementById('splash').addEventListener('click', function() {
+            dismissSplash();
+        });
+
+        // ===== TOGGLE GUEST COUNT =====
+        document.getElementById('guest-plus').addEventListener('change', function() {
+            document.getElementById('guest-count-wrap').style.display =
+                this.value === 'family' ? 'block' : 'none';
+        });
+
+        // ===== FORM SUBMIT =====
+        document.getElementById('rsvp-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            this.style.display = 'none';
+            document.getElementById('form-success').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
