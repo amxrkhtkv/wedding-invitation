@@ -1213,7 +1213,7 @@
             
             const plusText = guestPlus === 'alone' ? 'Только я' : guestPlus === 'couple' ? 'Буду с парой' : 'Приду с семьёй';
             
-            const text = `🎉 Уей, к вам на свадьбу спешит новый джупсик!\n\n👤 Имя: ${guestName}\n👥 Состав: ${plusText}${guestPlus === 'family' ? ` (${guestCount} чел.)` : ''}\n💬 Пожелания: ${guestMessage}\n\n📋 <a href="${GOOGLE_SHEET_URL}">Список гостей (Google Sheets)</a>`;
+            const text = `🎉 Уей, к вам на свадьбу спешит новый джупсик!\n\n👤 Имя: ${guestName}\n👥 Состав: ${plusText}${guestPlus === 'family' ? ` (${guestCount} чел.)` : ''}\n💬 Пожелания: ${guestMessage}\n\n📋 <a href="${GOOGLE_SHEET_URL}">Тык сюда, чтобы посмотреть всех</a>`;
             
             // Данные для Google Sheets (через Apps Script)
             const sheetData = {
