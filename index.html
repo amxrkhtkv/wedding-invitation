@@ -1196,11 +1196,58 @@
                 this.value === 'family' ? 'block' : 'none';
         });
 
-        // ===== FORM SUBMIT =====
+        // ===== FORM SUBMIT — TELEGRAM =====
+        const TELEGRAM_BOT_TOKEN = '8900410942:AAH-J84PGmphg8EHRsQVa0CT7bUKrX2HwEA';
+        const TELEGRAM_CHAT_ID = '-1003805479826';
+
         document.getElementById('rsvp-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            this.style.display = 'none';
-            document.getElementById('form-success').style.display = 'block';
+            
+            const guestName = document.getElementById('guest-name').value;
+            const guestPlus = document.getElementById('guest-plus').value;
+            const guestCount = document.getElementById('guest-count').value || '1';
+            const guestMessage = document.getElementById('guest-message').value || '—';
+            
+            // Формируем сообщение
+            let plusText = '';
+            if (guestPlus === 'alone') {
+                plusText = 'Только я';
+            } else if (guestPlus === 'couple') {
+                plusText = 'Буду с парой';
+            } else if (guestPlus === 'family') {
+                plusText = `Приду с семьёй (${guestCount} чел.)`;
+            }
+            
+            const message = `
+💌 *Новый ответ RSVP*
+
+👤 *Имя:* ${guestName}
+👥 *Состав:* ${plusText}
+💬 *Пожелания:* ${guestMessage}
+            `.trim();
+            
+            // Отправляем в Telegram
+            fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: TELEGRAM_CHAT_ID,
+                    text: message,
+                    parse_mode: 'Markdown'
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    this.style.display = 'none';
+                    document.getElementById('form-success').style.display = 'block';
+                } else {
+                    alert('Ошибка отправки. Попробуйте позже.');
+                }
+            })
+            .catch(error => {
+                console.error('Telegram error:', error);
+                alert('Ошибка отправки. Попробуйте позже.');
+            });
         });
     </script>
 </body>
