@@ -1208,32 +1208,18 @@
             const guestCount = document.getElementById('guest-count').value || '1';
             const guestMessage = document.getElementById('guest-message').value || '—';
             
-            // Формируем сообщение
-            let plusText = '';
-            if (guestPlus === 'alone') {
-                plusText = 'Только я';
-            } else if (guestPlus === 'couple') {
-                plusText = 'Буду с парой';
-            } else if (guestPlus === 'family') {
-                plusText = `Приду с семьёй (${guestCount} чел.)`;
-            }
+            const plusText = guestPlus === 'alone' ? 'Только я' : guestPlus === 'couple' ? 'Буду с парой' : 'Приду с семьёй';
             
-            const message = `
-💌 *Новый ответ RSVP*
-
-👤 *Имя:* ${guestName}
-👥 *Состав:* ${plusText}
-💬 *Пожелания:* ${guestMessage}
-            `.trim();
+            const text = `💌 Новый ответ RSVP\n\n👤 Имя: ${guestName}\n👥 Состав: ${plusText}${guestPlus === 'family' ? ` (${guestCount} чел.)` : ''}\n💬 Пожелания: ${guestMessage}`;
             
-            // Отправляем в Telegram
+            // Отправляем прямо в Telegram
             fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     chat_id: TELEGRAM_CHAT_ID,
-                    text: message,
-                    parse_mode: 'Markdown'
+                    text: text,
+                    parse_mode: 'HTML'
                 })
             })
             .then(response => {
