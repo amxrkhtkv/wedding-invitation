@@ -1210,7 +1210,7 @@
             
             const plusText = guestPlus === 'alone' ? 'Только я' : guestPlus === 'couple' ? 'Буду с парой' : 'Приду с семьёй';
             
-            const text = `💌 Новый ответ RSVP\n\n👤 Имя: ${guestName}\n👥 Состав: ${plusText}${guestPlus === 'family' ? ` (${guestCount} чел.)` : ''}\n💬 Пожелания: ${guestMessage}`;
+            const text = `🎉 Уей, к вам на свадьбу спешит новый джупсик!\n\n👤 Имя: ${guestName}\n👥 Состав: ${plusText}${guestPlus === 'family' ? ` (${guestCount} чел.)` : ''}\n💬 Пожелания: ${guestMessage}`;
             
             // Отправляем прямо в Telegram
             fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
