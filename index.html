@@ -1196,9 +1196,17 @@
                 this.value === 'family' ? 'block' : 'none';
         });
 
-        // ===== FORM SUBMIT — TELEGRAM =====
+        // ===== FORM SUBMIT — TELEGRAM + GOOGLE FORMS =====
         const TELEGRAM_BOT_TOKEN = '8900410942:AAH-J84PGmphg8EHRsQVa0CT7bUKrX2HwEA';
         const TELEGRAM_CHAT_ID = '-1003805479826';
+        const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScUjSClXU-q_gODkxFugjHBGUjqI6iTBB4aMxAsxu0UDGcUmA/formResponse';
+        const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1mHcrVcYTR4KkykRu-Oc-SjWj1pcOT2B3NFAinX3vroY/view';
+        
+        // Google Form entry IDs
+        const ENTRY_NAME = 'entry.663523461';
+        const ENTRY_PLUS = 'entry.1470310354';
+        const ENTRY_COUNT = 'entry.1463462440';
+        const ENTRY_MESSAGE = 'entry.1392990703';
 
         document.getElementById('rsvp-form').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -1210,10 +1218,17 @@
             
             const plusText = guestPlus === 'alone' ? 'Только я' : guestPlus === 'couple' ? 'Буду с парой' : 'Приду с семьёй';
             
-            const text = `🎉 Уей, к вам на свадьбу спешит новый джупсик!\n\n👤 Имя: ${guestName}\n👥 Состав: ${plusText}${guestPlus === 'family' ? ` (${guestCount} чел.)` : ''}\n💬 Пожелания: ${guestMessage}`;
+            const text = `🎉 Уей, к вам на свадьбу спешит новый джупсик!\n\n👤 Имя: ${guestName}\n👥 Состав: ${plusText}${guestPlus === 'family' ? ` (${guestCount} чел.)` : ''}\n💬 Пожелания: ${guestMessage}\n\n📋 <a href="${GOOGLE_SHEET_URL}">Список гостей (Google Sheets)</a>`;
             
-            // Отправляем прямо в Telegram
-            fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+            // Отправляем в Google Forms
+            const googleData = new URLSearchParams();
+            googleData.append(ENTRY_NAME, guestName);
+            googleData.append(ENTRY_PLUS, plusText);
+            googleData.append(ENTRY_COUNT, guestCount);
+            googleData.append(ENTRY_MESSAGE, guestMessage);
+            
+            // Отправляем в Telegram
+            const telegramData = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -1221,17 +1236,17 @@
                     text: text,
                     parse_mode: 'HTML'
                 })
-            })
-            .then(response => {
-                if (response.ok) {
-                    this.style.display = 'none';
-                    document.getElementById('form-success').style.display = 'block';
-                } else {
-                    alert('Ошибка отправки. Попробуйте позже.');
-                }
-            })
-            .catch(error => {
-                console.error('Telegram error:', error);
+            };
+            
+            // Отправляем параллельно — не ждём результатов
+            Promise.allSettled([
+                fetch(GOOGLE_FORM_URL, { method: 'POST', body: googleData }),
+                fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, telegramData)
+            ]).then(() => {
+                this.style.display = 'none';
+                document.getElementById('form-success').style.display = 'block';
+            }).catch(error => {
+                console.error('Send error:', error);
                 alert('Ошибка отправки. Попробуйте позже.');
             });
         });
