@@ -851,11 +851,45 @@
             cursor: pointer;
             transition: background 0.3s, color 0.3s;
             margin-top: 10px;
+            position: relative;
+            min-width: 140px;
         }
 
         .submit-btn:hover {
             background: var(--burgundy);
             color: #FFFFFF;
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .submit-btn .btn-loader {
+            display: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(139, 34, 82, 0.3);
+            border-top-color: var(--burgundy);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -9px;
+            margin-top: -9px;
+        }
+
+        .submit-btn.loading .btn-text {
+            opacity: 0;
+        }
+
+        .submit-btn.loading .btn-loader {
+            display: block;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         .form-success {
@@ -867,6 +901,12 @@
             color: var(--text);
             margin-top: 20px;
             text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* ===== RESPONSIVE ===== */
@@ -1071,7 +1111,10 @@
                         <label for="guest-message">Пожелания или комментарий</label>
                         <textarea id="guest-message" name="guest-message" placeholder="Здесь можно оставить пожелания, тёплые слова или анекдот..."></textarea>
                     </div>
-                    <button type="submit" class="submit-btn" style="margin-left: auto;">Отправить</button>
+                    <button type="submit" class="submit-btn" style="margin-left: auto;">
+                        <span class="btn-text">Отправить</span>
+                        <span class="btn-loader"></span>
+                    </button>
                 </form>
                 <div class="form-success" id="form-success">Спасибо! Мы получили твой ответ 💐</div>
 
@@ -1203,8 +1246,18 @@
         
         const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwWhdXvjnnXoct6bnNQjPXgjyoW2LwnW9635REAV0UPED4NOM4XbfkRXZphbcyOt1UJ/exec';
 
+        let isSubmitting = false;
+
         document.getElementById('rsvp-form').addEventListener('submit', function(e) {
             e.preventDefault();
+            
+            // Prevent multiple submissions
+            if (isSubmitting) return;
+            isSubmitting = true;
+            
+            const submitBtn = this.querySelector('.submit-btn');
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
             
             const guestName = document.getElementById('guest-name').value;
             const guestPlus = document.getElementById('guest-plus').value;
@@ -1247,11 +1300,18 @@
                 sheetRequest,
                 fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, telegramData)
             ]).then(() => {
-                this.style.display = 'none';
-                document.getElementById('form-success').style.display = 'block';
+                // Небольшая задержка, чтобы лоадер точно был виден
+                setTimeout(() => {
+                    this.style.display = 'none';
+                    document.getElementById('form-success').style.display = 'block';
+                    isSubmitting = false;
+                }, 300);
             }).catch(error => {
                 console.error('Send error:', error);
                 alert('Ошибка отправки. Попробуйте позже.');
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+                isSubmitting = false;
             });
         });
     </script>
